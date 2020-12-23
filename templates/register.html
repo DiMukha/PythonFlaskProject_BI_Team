@@ -1,6 +1,35 @@
-{% extends 'index.html' %}
-{% block title %}{% endblock %}
-{% block navbar %}{% endblock %}
+{% extends "index.html" %}
 {% block content %}
-<h1>Register</h1>
+<div class="container">
+      <form method="post">
+        <div class="row mb-6">
+        <label for="firstname" class="col-sm-2 col-form-label">First name</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="firstname" user="user" value="{{firstname}}">
+        </div>
+      </div>
+        <div class="row mb-6">
+        <label for="lastname" class="col-sm-2 col-form-label">Last name</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="lastname" user="user" value="{{lastname}}">
+        </div>
+      </div>
+        <div class="row mb-6">
+        <label for="inputUser3" class="col-sm-2 col-form-label">Create login</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="inputUser3" user="user" value="{{login}}">
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control" id="inputPassword3">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+
 {% endblock %}
