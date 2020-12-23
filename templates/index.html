@@ -1,5 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'bootstrap/base.html' %}
+{% block title %}{% endblock %}
 
-{% block content %}
-    <h2>Home Page</h2>
+{% block body %}
+
+{% block navbar %}
+    {% include 'nav_menu.html' %}
+{% endblock %}
+
+  <div class="container">
+      {% block content %}
+          <h1 class="display-2">Welcome to Report System</h1>
+      {% endblock %}
+  </div>
+
 {% endblock %}
