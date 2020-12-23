@@ -1,8 +1,6 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
-from werkzeug.utils import redirect
-
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -15,14 +13,13 @@ login_manager.init_app(app)
 def hello_world():
     return render_template('index.html')
 
+
 @app.route('/register', methods=["GET", "POST"])
 def register():
     firstname = lastname = email = ''
     if request.method == "POST":
         pass
     return render_template('register.html', firstname=firstname, lastname=lastname, email=email)
-
-
 
 
 @login_manager.user_loader
@@ -38,8 +35,6 @@ def login():
     if request.method == "POST":
         pass
     return render_template('login.html', user=user)
-
-
 
 
 if __name__ == '__main__':
