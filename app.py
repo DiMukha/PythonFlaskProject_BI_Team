@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
-from werkzeug.utils import redirect
+import sqlite3
 
 
 app = Flask(__name__)
@@ -16,8 +16,10 @@ def hello_world():
     return render_template('index.html')
 
 @app.route('/register', methods=["GET", "POST"])
+# args: firstname, lastname, login, email, password
+# if validation failed - we show 'message'
 def register():
-    firstname = lastname = email = ''
+    firstname = lastname = email = password = ''
     if request.method == "POST":
         pass
     return render_template('register.html', firstname=firstname, lastname=lastname, email=email)
