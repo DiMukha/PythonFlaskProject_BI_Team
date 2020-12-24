@@ -22,6 +22,11 @@ def register():
     return render_template('register.html', firstname=firstname, lastname=lastname, email=email)
 
 
+@app.route('/list_users')
+def list_users():
+    return render_template('list_users.html')
+
+
 @login_manager.user_loader
 def load_user(user_id):
     # return User.get(user_id)
