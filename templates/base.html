@@ -1,0 +1,37 @@
+<!doctype html>
+
+{% extends "bootstrap/base.html" %}
+
+<title>{% block title %}{% endblock %}Report System</title>
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top position-sticky">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+    <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarText" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            {% if g.user %}
+                <li class="nav-item active"><span class="navbar-text">{{ g.user['username'] }}</span>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+            {% else %}
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
+            {% endif %}
+        </ul>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-primary" role="alert">
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+</nav>
+{% endblock %}
