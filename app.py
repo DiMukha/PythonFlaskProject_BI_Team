@@ -16,5 +16,10 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/list_users')
+def list_users():
+    return render_template('list_users.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
