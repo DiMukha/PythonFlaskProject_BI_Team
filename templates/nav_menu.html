@@ -16,15 +16,15 @@
 {#      </li>#}
     </ul>
     <ul class="navbar-nav">
+        {% if g.user %}
+            <li class="nav-item"><span class="navbar-text">{{ g.user['username'] }}</span></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+        {% endif %}
         <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
-      </li>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/list_users">List Users</a>
+        <a class="nav-link" href="{{ url_for('list_users') }}">List Users</a>
       </li>
     </ul>
   </div>

@@ -1,16 +1,29 @@
 {% extends 'bootstrap/base.html' %}
-{% block title %}{% endblock %}
 
-{% block body %}
-
-{% block navbar %}
-    {% include 'nav_menu.html' %}
+{% block header %}
+    <h1>{% block title %}Main{% endblock %}</h1>
 {% endblock %}
 
-  <div class="container">
+{% block body %}
+    {% block navbar %}
+        {% include 'nav_menu.html' %}
+    {% endblock %}
+
+    <div class="container">
       {% block content %}
           <h1 class="display-3">Welcome to Report System</h1>
       {% endblock %}
-  </div>
+    </div>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-primary" role="alert">
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
 {% endblock %}
