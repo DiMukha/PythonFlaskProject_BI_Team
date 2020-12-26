@@ -1,39 +1,29 @@
 {% extends "index.html" %}
 {% block content %}
 <div class="container">
-    <h1>Update user {{ user_data }}</h1>
+    <h1>Update user: {{ firstname }} {{ lastname }}</h1>
     {% if message%}
     <div class="alert alert-danger" role="alert">
         {{message}}
     </div>
+    {% endif %}
 
-    {% endif%}
-
-    <form>
+    <form action="" method="post">
         <div class="form-group col-md-12">
-            <label for="firstname" class="form-group col-md-6">First name</label>
-            <input type="text" class="form-control" id="firstname" value="{{firstname}}">
+            <label for="firstname" class="form-group col-md-6">First name: {{ firstname }}</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" value="{{ firstname }}">
         </div>
         <div class="form-group col-md-12">
-            <label for="lastname" class="form-group col-md-6">Last name</label>
-            <input type="text" class="form-control" id="lastname" value="{{lastname}}">
-
+            <label for="lastname" class="form-group col-md-6">Last name: {{ lastname }}</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ lastname }}">
         </div>
         <div class="form-group col-md-12">
-            <label for="login" class="form-group col-md-6">Create login</label>
-            <input type="text" class="form-control" id="login" value="{{login}}">
-
+            <label for="login" class="form-group col-md-6">Login: {{ login }}</label>
+            <input type="text" class="form-control" id="login" name="login" value="{{ login }}">
         </div>
-
         <div class="form-group col-md-12">
-            <label for="email" class="form-group col-md-6">Email</label>
-            <input type="email" class="form-control" id="email" value="{{email}}">
-
-        </div>
-
-        <div class="form-group col-md-12">
-            <label for="created_password" class="form-group col-md-6">Password</label>
-            <input type="password" class="form-control" id="created_password">
+            <label for="email" class="form-group col-md-6">Email: {{ email }}</label>
+            <input type="text" class="form-control" id="email" name="email" value="{{ email }}">
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
