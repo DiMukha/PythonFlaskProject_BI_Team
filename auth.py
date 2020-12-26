@@ -23,22 +23,15 @@ def register():
 
         if not password:
             error = 'Password is required.'
-
         if not email:
             error = 'Email is required.'
-        elif db.execute(
-                'SELECT id FROM users WHERE email = ?',
-                (email,)
-        ).fetchone() is not None:
-            error = 'Email {} is already registered.'.format(email)
-
         if not username:
             error = 'Username is required.'
-        elif db.execute(
-                'SELECT id FROM users WHERE login = ?',
-                (username,)
+        if db.execute(
+                'SELECT id FROM users WHERE login = ? or email = ?',
+                (username, email,)
         ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
+            error = 'User {} or {} is already registered.'.format(username, email)
 
         if error is None:
             db.execute(
@@ -64,10 +57,8 @@ def login():
             'SELECT id, login as username, email, password, firstname, lastname FROM users WHERE login = ?', (username,)
         ).fetchone()
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+        if user is None or not check_password_hash(user['password'], password):
+            error = 'Incorrect username or password.'
 
         if error is None:
             session.clear()
@@ -84,7 +75,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = get_db().execute(
-            'SELECT id, login as username, email, password, firstname, lastname FROM users WHERE id = ?',
+            'SELECT id, login as username FROM users WHERE id = ?',
             (user_id,)
         ).fetchone()
 

@@ -18,8 +18,8 @@ def index():
     return render_template('index.html')
 
 
-
 @app.route('/list_users')
+@auth.login_required
 def list_users():
     db = sqlite3.connect('db.report_system')
     cursor = db.cursor()
@@ -30,8 +30,8 @@ def list_users():
     return render_template('list_users.html', users_data=users_data)
 
 
-
 @app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
+@auth.login_required
 def update_user(id_=1):
     attributes = ['firstname', 'lastname', 'login', 'email']
     user_data = {k: '' for k in attributes}
