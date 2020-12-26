@@ -1,9 +1,11 @@
 import sqlite3
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, send_file, flash
 from flask_bootstrap import Bootstrap
+import pandas as pd
 
 import auth
 import db
+import data_export
 
 
 app = Flask(__name__)
@@ -59,6 +61,24 @@ def update_user(id_=1):
     db.commit()
     db.close()
     return render_template('update_user.html', **user_data)
+
+
+@app.route('/send_xlsx')
+def send_xlsx():
+    d = {'col1': [1, 2], 'col2': [3, 4]}
+    df = pd.DataFrame(d)
+    return send_file(data_export.export_dataframe(df), attachment_filename="testing.xlsx", as_attachment=True)
+
+
+@app.route('/upload_file', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'GET':
+        return render_template('upload_file.html')
+    if request.method == 'POST':
+        file = request.files['file']
+        df = data_export.import_bytes(file.read())
+        flash(df.to_json())
+        return redirect(url_for('upload_file'))
 
 
 if __name__ == '__main__':
