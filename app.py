@@ -18,13 +18,6 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/register', methods=["GET", "POST"])
-def register():
-    firstname = lastname = email = ''
-    if request.method == "POST":
-        pass
-    return render_template('register.html', firstname=firstname, lastname=lastname, email=email)
-
 
 @app.route('/list_users')
 def list_users():
@@ -36,20 +29,6 @@ def list_users():
     db.close()
     return render_template('list_users.html', users_data=users_data)
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    # return User.get(user_id)
-    pass
-
-
-# https://flask-login.readthedocs.io/en/latest/
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    user = ''
-    if request.method == "POST":
-        pass
-    return render_template('login.html', user=user)
 
 
 @app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
