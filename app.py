@@ -50,7 +50,7 @@ def login():
     return render_template('login.html', user=user)
 
 
-@app.route('/update_user/', methods=['GET', 'POST'])
+@app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
 def update_user(id_=1):
     attributes = ['firstname', 'lastname', 'login', 'email']
     user_data = {k: '' for k in attributes}

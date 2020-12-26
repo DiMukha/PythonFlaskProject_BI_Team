@@ -1,28 +1,24 @@
 {% extends "index.html" %}
 {% block content %}
-
-<div class="table-responsive container">
-        <table class="table table-striped table-sm">
+        <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Login</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>E-mail</th>
+              <th scope="col">ID</th>
+              <th scope="col">Login</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">E-mail</th>
             </tr>
           </thead>
           <tbody>
+          {% for user in users_data %}
             <tr>
-              <td>1</td>
-              <td>pryshchepa</td>
-              <td>Stanislav</td>
-              <td>Pryshchepa</td>
-              <td>stasprischepa@gmail.com</td>
+            {% for attribute in user %}
+              <td><a href="/update_user/{{ user[0] }}">{{ attribute }}</a></td>
+            {% endfor %}
             </tr>
-
+          {% endfor %}
           </tbody>
         </table>
-      </div>
 
 {% endblock %}
