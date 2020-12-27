@@ -1,6 +1,8 @@
 import sqlite3
 from flask import Flask, render_template, request, url_for, redirect
 from flask_bootstrap import Bootstrap
+
+from dataset_view_app.import_db_data import load_sales_data
 from settings.config import SECRET_KEY
 
 import auth
@@ -59,6 +61,11 @@ def update_user(id_):
     db.close()
     return render_template('update_user.html', **user_data)
 
+
+@app.route('/data_view')
+def data_view():
+    columns, data = load_sales_data()
+    return render_template('data_view/table_data.html', columns=columns, data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
