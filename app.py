@@ -18,7 +18,6 @@ def index():
     return render_template('index.html')
 
 
-
 @app.route('/list_users')
 def list_users():
     db = sqlite3.connect('db.report_system')
@@ -30,9 +29,8 @@ def list_users():
     return render_template('list_users.html', users_data=users_data)
 
 
-
 @app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
-def update_user(id_=1):
+def update_user(id_):
     attributes = ['firstname', 'lastname', 'login', 'email']
     user_data = {k: '' for k in attributes}
     db = sqlite3.connect('db.report_system')
