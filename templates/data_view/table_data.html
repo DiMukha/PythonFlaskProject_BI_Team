@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+<h3>Sales Data</h3>
+    <div class="table-responsive">
+    <table class="table table-sm table-bordered table">
+  <thead class="thead-light">
+    <tr>
+        {% for col in columns %}
+      <td>{{ col }}</td>
+        {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in data %}
+    <tr>
+    {% for cell in row %}
+      <td>{{ cell }}</td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+
+{% endblock %}
