@@ -24,9 +24,13 @@
         </div>
     </div>
     <div class="row mx-1">
+        {% if next == 1 %}
+        <a href="/data_view/{{ prev }}" class="btn disabled btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
+        {% else %}
         <a href="/data_view/{{ prev }}" class="btn btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
+        {% endif %}
         <a href="/data_view/{{ next }}" class="btn btn-outline-secondary btn-sm mr-1">Next &raquo;</a>
-        <div class="ml-2">pages {{ page_from }} - {{ page_to }}</div>
+        <div class="alert alert-secondary mb-0 p-1">rows {{ page_from }} - {{ page_to }}</div>
     </div>
 
 {% endblock %}
