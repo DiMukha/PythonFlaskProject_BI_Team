@@ -1,25 +1,32 @@
 {% extends 'index.html' %}
 {% block content %}
 <h3>Sales Data</h3>
-    <div class="table-responsive">
-    <table class="table table-sm table-bordered table-hover" style="font-size: 0.8rem">
-  <thead class="thead-light" style="font-weight: 600; background-color: #d3d3d34d">
-    <tr>
-        {% for col in columns %}
-      <td>{{ col }}</td>
-        {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-  {% for row in data %}
-    <tr>
-    {% for cell in row %}
-      <td>{{ cell }}</td>
-    {% endfor %}
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+    <div class="row mx-1">
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover" style="font-size: 0.8rem">
+                <thead class="thead-light" style="font-weight: 600; background-color: #d3d3d34d">
+                    <tr>
+                        {% for col in columns %}
+                        <td>{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mx-1">
+        <a href="/data_view/{{ prev }}" class="btn btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
+        <a href="/data_view/{{ next }}" class="btn btn-outline-secondary btn-sm mr-1">Next &raquo;</a>
+        <div class="ml-2">pages {{ page_from }} - {{ page_to }}</div>
     </div>
 
 {% endblock %}

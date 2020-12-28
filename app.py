@@ -64,10 +64,26 @@ def update_user(id_):
     return render_template('update_user.html', **user_data)
 
 
-@app.route('/data_view')
-def data_view():
+@app.route('/data_view/')
+@app.route('/data_view/<int:page>')
+def data_view(page=0):
     columns, data = load_sales_data()
-    return render_template('data_view/table_data.html', columns=columns, data=data)
+    prev = page
+    page_from = page
+    next = prev + 1
+    if page > 0:
+        prev = page - 1
+        next = prev + 2
+        page_from = page * 10
+    page_to = page_from + 10
+    data = data[page_from:page_to]
+    return render_template('data_view/table_data.html',
+                           columns=columns,
+                           data=data,
+                           prev=prev,
+                           next=next,
+                           page_from=page_from,
+                           page_to=page_to)
 
 if __name__ == '__main__':
     app.run(debug=True)
