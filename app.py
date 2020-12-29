@@ -7,12 +7,14 @@ from settings.config import SECRET_KEY
 
 import auth
 import db
+import app_export
 
 
 app = Flask(__name__)
 Bootstrap(app)
 db.init_app(app)
 app.register_blueprint(auth.bp)
+app.register_blueprint(app_export.bp)
 app.config['SECRET_KEY'] = SECRET_KEY
 
 
