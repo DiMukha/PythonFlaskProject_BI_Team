@@ -1,4 +1,5 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, send_file
+from xlsxwriter import Workbook
 
 import auth
 from dataset_view_app.import_db_data import load_sales_data
@@ -27,3 +28,21 @@ def data_view(page=0):
                            next=next,
                            page_from=page_from,
                            page_to=page_to)
+
+
+@bp.route('/data_view/download', methods=['GET'])
+@auth.login_required
+def download():
+    columns, data = load_sales_data()
+    wb = Workbook('/dataset_view_app/xls_files/sales_data.xlsx')
+    ws = wb.add_worksheet('SalesData')
+
+    for col in range(len(columns)):
+        ws.write(0, col, columns[col])
+        print(col)
+    for row in range(len(data)):
+        for col in range(len(columns)):
+            print(row)
+            ws.write(row, col, data[row][col])
+    wb.close()
+    return send_file('/dataset_view_app/xls_files/sales_data.xlsx')
