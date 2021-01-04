@@ -3,7 +3,7 @@ import psycopg2
 from settings.config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST
 
 
-def load_sales_data(filters):
+def load_sales_data(filters, offset_page):
     sql = 'select * from sales_data where  '
     connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
     cursor = connection.cursor()
@@ -34,10 +34,7 @@ def load_sales_data(filters):
             sql += filters['PRICEEACH_max']
             sql += ' AND'
 
-    sql += ' 1=1 order by ordernumber, orderlinenumber '
-    print(sql)
-    print('i showd all filtrs')
-    # cursor.execute('select * from sales_data order by ordernumber, orderlinenumber')
+    sql += f" 1=1 order by ordernumber, orderlinenumber limit {10} offset {offset_page*10}"
     cursor.execute(sql)
     columns = [desc[0] for desc in cursor.description]
     data = cursor.fetchall()
@@ -45,17 +42,6 @@ def load_sales_data(filters):
     connection.close()
     return columns, data
 
-
-# def load_default_filters():
-#     sql = 'select MIN(ORDERDATE), MAX(ORDERDATE), MIN(PRICEEACH), MAX(PRICEEACH) from sales_data  '
-#     # sql = 'select 123 , 321 from sales_data'
-#     connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
-#     cursor = connection.cursor()
-#     cursor.execute(sql)
-#     data = cursor.fetchone()
-#     cursor.close()
-#     connection.close()
-#     return data
 
 def load_statuses():
     sql = 'select DISTINCT(STATUS) from sales_data  '
