@@ -8,23 +8,21 @@
     {% block navbar %}
         {% include 'nav_menu.html' %}
     {% endblock %}
-
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       {% block content %}
-          <h1 class="display-3">Welcome to Report System</h1>
-
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('data_export.send_xlsx') }}">Download File</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('data_export.upload_file') }}">Upload File</a>
-          </li>
-        </ul>
-
+          <div class="container">
+            <h1 class="display-3">Welcome to Report System</h1>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('data_export.send_xlsx') }}">Download File</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('data_export.upload_file') }}">Upload File</a>
+                </li>
+            </ul>
+          </div>
       {% endblock %}
     </div>
-
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <div class="alert alert-primary" role="alert">
