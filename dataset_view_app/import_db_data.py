@@ -1,6 +1,6 @@
 import psycopg2
 
-from settings.config import DB_CONNECTION
+from settings.config import DB_CONNECTION, ROWS_LIMIT
 
 
 def load_sales_data(filters, offset_page):
@@ -34,7 +34,7 @@ def load_sales_data(filters, offset_page):
             sql += filters['max_price']
             sql += ' AND'
 
-    sql += f" 1=1 order by ordernumber, orderlinenumber limit {10} offset {offset_page*10}"
+    sql += f" 1=1 order by ordernumber, orderlinenumber limit {ROWS_LIMIT} offset {offset_page*ROWS_LIMIT}"
     cursor.execute(sql)
     columns = [desc[0] for desc in cursor.description]
     data = cursor.fetchall()

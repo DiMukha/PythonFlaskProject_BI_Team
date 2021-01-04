@@ -18,3 +18,5 @@ DB_CONNECTION = {
     'password': DB_PASSWORD,
     'host': DB_HOST
 }
+
+ROWS_LIMIT = 10
