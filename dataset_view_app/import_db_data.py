@@ -1,11 +1,11 @@
 import psycopg2
 
-from settings.config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST
+from settings.config import DB_CONNECTION
 
 
 def load_sales_data(filters, offset_page):
     sql = 'select * from sales_data where  '
-    connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+    connection = psycopg2.connect(**DB_CONNECTION)
     cursor = connection.cursor()
     if len(filters) > 0:
 
@@ -45,7 +45,7 @@ def load_sales_data(filters, offset_page):
 
 def load_statuses():
     sql = 'select DISTINCT(STATUS) from sales_data  '
-    connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+    connection = psycopg2.connect(**DB_CONNECTION)
     cursor = connection.cursor()
     cursor.execute(sql)
     row_data = cursor.fetchall()
