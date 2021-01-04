@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, send_file, request
+from flask import render_template, Blueprint, send_file, request, session
 from xlsxwriter import Workbook
 
 import auth
@@ -11,20 +11,8 @@ bp = Blueprint('table_data', __name__, url_prefix='/table_data')
 @bp.route('/data_view/<int:page>', methods=['GET', 'POST'])
 @auth.login_required
 def data_view(page=0):
-    filters = {}
+    filters = {parameter: value for parameter, value in request.args.items() if value}
     default_statuses = load_statuses()
-    if request.form.get('order_num'):
-        filters['ORDERNUMBER'] = request.form.get('order_num')
-    if request.form.get('order_status'):
-        filters['STATUS'] = str(request.form.get('order_status'))
-    if request.form.get('min_order_date'):
-        filters['ORDERDATE_min'] = str(request.form.get('min_order_date'))
-    if request.form.get('max_order_date'):
-        filters['ORDERDATE_max'] = str(request.form.get('max_order_date'))
-    if request.form.get('min_price'):
-        filters['PRICEEACH_min'] = str(request.form.get('min_price'))
-    if request.form.get('max_price'):
-        filters['PRICEEACH_max'] = str(request.form.get('max_price'))
     offset_page = page
     columns, data = load_sales_data(filters, offset_page)
     prev = page
