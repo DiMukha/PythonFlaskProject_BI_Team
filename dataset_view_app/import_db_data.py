@@ -52,5 +52,4 @@ def load_statuses():
     statuses_list = [item[0] for item in row_data]
     cursor.close()
     connection.close()
-    print(statuses_list)
     return statuses_list

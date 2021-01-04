@@ -66,52 +66,5 @@ def update_user(id_):
     return render_template('update_user.html', **user_data)
 
 
-@app.route('/data_view/', methods=['GET', 'POST'])
-@app.route('/data_view/<int:page>', methods=['GET', 'POST'])
-def data_view(page=0):
-    filters = {}
-    # default_filters = load_default_filters()
-    default_statuses = load_statuses()
-    # print(default_filters)
-    print(default_statuses)
-    if request.method == 'POST':
-        print(request.form)
-        if request.form.get('order_num'):
-            filters['ORDERNUMBER'] = request.form.get('order_num')
-        if request.form.get('order_status'):
-            filters['STATUS'] = str(request.form.get('order_status'))
-        if request.form.get('min_order_date'):
-            filters['ORDERDATE_min'] = str(request.form.get('min_order_date'))
-        if request.form.get('max_order_date'):
-            filters['ORDERDATE_max'] = str(request.form.get('max_order_date'))
-        if request.form.get('min_price'):
-            filters['PRICEEACH_min'] = str(request.form.get('min_price'))
-        if request.form.get('max_price'):
-            filters['PRICEEACH_max'] = str(request.form.get('max_price'))
-
-    columns, data = load_sales_data(filters)
-    prev = page
-    page_from = page
-    next = prev + 1
-    if page > 0:
-        prev = page - 1
-        next = prev + 2
-        page_from = page * 10
-    page_to = page_from + 10
-    data = data[page_from:page_to]
-    return render_template('data_view/table_data.html',
-                           columns=columns,
-                           data=data,
-                           filters=filters,
-                           statuses=default_statuses,
-                           prev=prev,
-                           next=next,
-                           page_from=page_from,
-                           page_to=page_to)
-
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
