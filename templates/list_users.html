@@ -1,26 +1,28 @@
 {% extends "index.html" %}
 {% block content %}
-    <div class="container mt-5">
-        <table class="table table-sm table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Login</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">E-mail</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for user in users_data %}
-            <tr>
-            {% for attribute in user %}
-              <td><a href="/update_user/{{ user[0] }}">{{ attribute }}</a></td>
-            {% endfor %}
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
+    <div class="jumbotron">
+        <div class="container">
+            <table class="table table-sm table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Login</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">E-mail</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for user in users_data %}
+                <tr>
+                {% for attribute in user %}
+                  <td><a href="/update_user/{{ user[0] }}">{{ attribute }}</a></td>
+                {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
     </div>
 
 {% endblock %}
