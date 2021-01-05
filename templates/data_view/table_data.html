@@ -32,28 +32,28 @@
                     <label class="col-sm-4 col-form-label" for="min_order_date">Min order date</label>
                     <div class="col-sm-8">
                         <input class="form-control" id="min_order_date" name="min_order_date" type="text"
-                               value="{{ filters['min_order_date']}}">
+                               value="{{ filters['min_order_date'] }}">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label class="col-sm-4 col-form-label" for="max_order_date">Max order date</label>
                     <div class="col-sm-8">
                         <input class="form-control" id="max_order_date" name="max_order_date" type="text"
-                               value="{{ filters['max_order_date']}}">
+                               value="{{ filters['max_order_date'] }}">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label class="col-sm-4 col-form-label" for="min_price">Min price</label>
                     <div class="col-sm-8">
                         <input class="form-control" id="min_price" name="min_price" type="text"
-                               value="{{ filters['min_price']}}">
+                               value="{{ filters['min_price'] }}">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label class="col-sm-4 col-form-label" for="max_price">Max price</label>
                     <div class="col-sm-8">
                         <input class="form-control" id="max_price" name="max_price" type="text"
-                               value="{{ filters['max_price']}}">
+                               value="{{ filters['max_price'] }}">
                     </div>
                 </div>
 
@@ -98,9 +98,7 @@
             <a href="/table_data/data_view/{{ next }}" class="btn btn-outline-secondary btn-sm mr-1">Next &raquo;</a>
             <div class="alert alert-secondary mb-0 p-1">rows {{ page_from }} - {{ page_to }}</div>
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}
