@@ -5,15 +5,11 @@ from flask_bootstrap import Bootstrap
 from settings.config import SECRET_KEY
 
 import auth
-import db
-import app_export
 from dataset_view_app import app_table_data_view
 
 app = Flask(__name__)
 Bootstrap(app)
-db.init_app(app)
 app.register_blueprint(auth.bp)
-app.register_blueprint(app_export.bp)
 app.register_blueprint(app_table_data_view.bp)
 app.config['SECRET_KEY'] = SECRET_KEY
 
