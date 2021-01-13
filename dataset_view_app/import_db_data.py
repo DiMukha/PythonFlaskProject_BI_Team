@@ -1,11 +1,11 @@
 import psycopg2
 
-from settings.config import DB_CONNECTION, ROWS_LIMIT
+from app import app
 
 
 def load_sales_data(filters, offset_page):
     sql = 'select * from sales_data where  '
-    connection = psycopg2.connect(**DB_CONNECTION)
+    connection = psycopg2.connect(**app.config['DB_CONNECTION'])
     cursor = connection.cursor()
     if len(filters) > 0:
 
@@ -34,7 +34,8 @@ def load_sales_data(filters, offset_page):
             sql += filters['max_price']
             sql += ' AND'
 
-    sql += f" 1=1 order by ordernumber, orderlinenumber limit {ROWS_LIMIT} offset {offset_page*ROWS_LIMIT}"
+    sql += f" 1=1 order by ordernumber, orderlinenumber limit {app.config['ROWS_LIMIT']} " \
+           f"offset {offset_page*app.config['ROWS_LIMIT']}"
     cursor.execute(sql)
     columns = [desc[0] for desc in cursor.description]
     data = cursor.fetchall()
@@ -45,7 +46,7 @@ def load_sales_data(filters, offset_page):
 
 def load_statuses():
     sql = 'select DISTINCT(STATUS) from sales_data'
-    connection = psycopg2.connect(**DB_CONNECTION)
+    connection = psycopg2.connect(**app.config['DB_CONNECTION'])
     cursor = connection.cursor()
     cursor.execute(sql)
     row_data = cursor.fetchall()
