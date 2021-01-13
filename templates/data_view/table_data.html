@@ -90,12 +90,12 @@
             </div>
         </div>
         <div class="row mx-1">
-            {% if next == 1 %}
-            <a href="/table_data/data_view/{{ prev }}" class="btn disabled btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
+            {% if page_from %}
+                <a href="{{ prev }}" class="btn btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
             {% else %}
-            <a href="/table_data/data_view/{{ prev }}" class="btn btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
+                <a href="{{ prev }}" class="btn disabled btn-outline-secondary btn-sm mr-1">&laquo; Prev</a>
             {% endif %}
-            <a href="/table_data/data_view/{{ next }}" class="btn btn-outline-secondary btn-sm mr-1">Next &raquo;</a>
+                <a href="{{ next }}" class="btn btn-outline-secondary btn-sm mr-1">Next &raquo;</a>
             <div class="alert alert-secondary mb-0 p-1">rows {{ page_from }} - {{ page_to }}</div>
         </div>
     </div>
