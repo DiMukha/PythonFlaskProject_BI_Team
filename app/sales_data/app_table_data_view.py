@@ -1,7 +1,7 @@
 from flask import render_template, Blueprint, request, url_for
 
-import auth
-from dataset_view_app.import_db_data import load_sales_data, load_statuses
+from app.auth import auth
+from app.sales_data.import_db_data import load_sales_data, load_statuses
 
 bp = Blueprint('table_data', __name__, url_prefix='/table_data')
 
@@ -29,7 +29,7 @@ def data_view():
 
     page_from = offset_page * 10
     page_to = page_from + 10
-    return render_template('data_view/table_data.html',
+    return render_template('sales_data/table_data.html',
                            columns=columns,
                            data=data,
                            filters=filters,

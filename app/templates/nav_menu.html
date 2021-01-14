@@ -10,7 +10,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/table_data/data_view">SalesData</a>
+        <a class="nav-link" href="{{ url_for('table_data.data_view') }}">SalesData</a>
       </li>
 
     </ul>
@@ -23,7 +23,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
         {% endif %}
         <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('list_users') }}">List Users</a>
+        <a class="nav-link" href="{{ url_for('users.list_users') }}">List Users</a>
       </li>
     </ul>
   </div>
