@@ -1,93 +1,67 @@
-import functools
+from flask import request, redirect, url_for, render_template
+from app import app, db, login_manager
+from .forms import RegistrationForm, LoginForm
+from app.models import User
+from flask_login import login_user
 
-from flask import request, redirect, url_for, render_template, flash, session, g
-from werkzeug.security import check_password_hash, generate_password_hash
-from app import app
-from db import get_db
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
-    username = email = firstname = lastname = ''
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-
-        db = get_db()
-        error = None
-
-        if not password:
-            error = 'Password is required.'
-        if not email:
-            error = 'Email is required.'
-        if not username:
-            error = 'Username is required.'
-        if db.execute(
-                'SELECT id FROM users WHERE login = ? or email = ?',
-                (username, email,)
-        ).fetchone() is not None:
-            error = 'User {} or {} is already registered.'.format(username, email)
-
-        if error is None:
-            db.execute(
-                'INSERT INTO users (login, email, password, firstname, lastname) VALUES (?, ?, ?, ?, ?)',
-                (username, email, generate_password_hash(password), firstname, lastname)
-            )
-            db.commit()
-            return redirect(url_for('auth.login'))
-        flash(error)
-    return render_template('auth/register.html', username=username, email=email, firstname=firstname, lastname=lastname)
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(login=form.login.data,
+                    password_hash=form.password.data,
+                    email=form.email.data,
+                    first_name=form.first_name.data,
+                    last_name=form.last_name.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('auth/register.html', form=form)
 
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
-    username = ''
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(login=form.login.data).first()
+        if user.check_password(form.password.data) and user is not None:
+            login_user(user)
 
-        db = get_db()
-        error = None
-        user = db.execute(
-            'SELECT id, login as username, email, password, firstname, lastname FROM users WHERE login = ?', (username,)
-        ).fetchone()
-
-        if user is None or not check_password_hash(user['password'], password):
-            error = 'Incorrect username or password.'
-
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
-        flash(error)
-    return render_template('auth/login.html', username=username)
-
-
-# @app.before_app_request
-# def load_logged_in_user():
-#     user_id = session.get('user_id')
-#     if user_id is None:
-#         g.user = None
-#     else:
-#         g.user = get_db().execute(
-#             'SELECT id, login as username FROM users WHERE id = ?',
-#             (user_id,)
-#         ).fetchone()
-
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
-    return wrapped_view
+            next = request.args.get('next')
+            if next == None or not next[0] == '/':
+                next = url_for('index')
+            return redirect(next)
+    return render_template('auth/login.html', form=form)
+#
+#
+# # @app.before_app_request
+# # def load_logged_in_user():
+# #     user_id = session.get('user_id')
+# #     if user_id is None:
+# #         g.user = None
+# #     else:
+# #         g.user = get_db().execute(
+# #             'SELECT id, login as username FROM users WHERE id = ?',
+# #             (user_id,)
+# #         ).fetchone()
+#
+#
+# @app.route('/logout')
+# def logout():
+#     session.clear()
+#     return redirect(url_for('index'))
+#
+#
+# def login_required(view):
+#     @functools.wraps(view)
+#     def wrapped_view(**kwargs):
+#         if g.user is None:
+#             return redirect(url_for('auth.login'))
+#         return view(**kwargs)
+#     return wrapped_view

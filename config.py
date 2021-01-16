@@ -12,6 +12,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
 
     DB_NAME = os.getenv('DBNAME')
+    DB_NAME_ORM = os.getenv('DBNAMEORM')
     DB_USER = os.getenv('USER')
     DB_PASSWORD = os.getenv('PASSWORD')
     DB_HOST = os.getenv('HOST')
@@ -22,5 +23,8 @@ class Config:
         'password': DB_PASSWORD,
         'host': DB_HOST
     }
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME_ORM
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     ROWS_LIMIT = 10
