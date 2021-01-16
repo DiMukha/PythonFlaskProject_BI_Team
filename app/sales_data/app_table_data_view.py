@@ -3,11 +3,11 @@ from flask import render_template, Blueprint, request, url_for
 from app.auth import auth
 from app.sales_data.import_db_data import load_sales_data, load_statuses
 
-bp = Blueprint('table_data', __name__, url_prefix='/table_data')
+bp = Blueprint('table_data', __name__, url_prefix='/table_data', template_folder='templates')
 
 
 @bp.route('/data_view', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def data_view():
     filters = {parameter: value for parameter, value in request.args.items() if value}
     default_statuses = load_statuses()

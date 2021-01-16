@@ -3,7 +3,7 @@ from flask import render_template, Blueprint, request, url_for, redirect
 from app.auth import auth
 import sqlite3
 
-bp = Blueprint('users', __name__, url_prefix='/users')
+bp = Blueprint('users', __name__, url_prefix='/users', template_folder='templates')
 
 
 @bp.route('/list_users')
@@ -15,7 +15,7 @@ def list_users():
     users_data = cursor.fetchall()
     cursor.close()
     db.close()
-    return render_template('users_list/list_users.html', users_data=users_data)
+    return render_template('users/list_users.html', users_data=users_data)
 
 
 @bp.route('/update_user/<int:id_>', methods=['GET', 'POST'])
@@ -48,4 +48,4 @@ def update_user(id_):
     db.commit()
     db.close()
 
-    return render_template('users_list/update_user.html', **user_data)
+    return render_template('users/update_user.html', **user_data)
