@@ -1,13 +1,9 @@
-from flask import render_template, Blueprint, request, url_for, redirect
-
-from app.auth import auth
+from flask import render_template, request, url_for, redirect
+from app import app
 import sqlite3
 
-bp = Blueprint('users', __name__, url_prefix='/users', template_folder='templates')
 
-
-@bp.route('/list_users')
-@auth.login_required
+@app.route('/list_users')
 def list_users():
     db = sqlite3.connect('db.report_system')
     cursor = db.cursor()
@@ -18,8 +14,7 @@ def list_users():
     return render_template('users/list_users.html', users_data=users_data)
 
 
-@bp.route('/update_user/<int:id_>', methods=['GET', 'POST'])
-@auth.login_required
+@app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
 def update_user(id_):
     attributes = ['firstname', 'lastname', 'login', 'email']
     user_data = {k: '' for k in attributes}

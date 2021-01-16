@@ -10,20 +10,20 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('table_data.data_view') }}">SalesData</a>
+        <a class="nav-link" href="{{ url_for('data_view') }}">SalesData</a>
       </li>
 
     </ul>
     <ul class="navbar-nav">
         {% if g.user %}
             <li class="nav-item"><span class="navbar-text">{{ g.user['username'] }}</span></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>
         {% endif %}
         <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('users.list_users') }}">List Users</a>
+        <a class="nav-link" href="{{ url_for('list_users') }}">List Users</a>
       </li>
     </ul>
   </div>

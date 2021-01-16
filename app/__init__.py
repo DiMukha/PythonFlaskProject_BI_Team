@@ -8,3 +8,6 @@ app.config.from_object(config.Config)
 Bootstrap(app)
 
 from . import routes
+from .auth import auth
+from .users import users_list
+from .sales_data import app_table_data_view

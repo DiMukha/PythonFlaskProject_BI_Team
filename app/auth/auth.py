@@ -1,14 +1,12 @@
 import functools
 
-from flask import Blueprint, request, redirect, url_for, render_template, flash, session, g
+from flask import request, redirect, url_for, render_template, flash, session, g
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from app import app
 from db import get_db
 
-bp = Blueprint('auth', __name__, url_prefix='/auth', template_folder='templates')
 
-
-@bp.route('/register', methods=('GET', 'POST'))
+@app.route('/register', methods=('GET', 'POST'))
 def register():
     username = email = firstname = lastname = ''
     if request.method == 'POST':
@@ -44,7 +42,7 @@ def register():
     return render_template('auth/register.html', username=username, email=email, firstname=firstname, lastname=lastname)
 
 
-@bp.route('/login', methods=('GET', 'POST'))
+@app.route('/login', methods=('GET', 'POST'))
 def login():
     username = ''
     if request.method == 'POST':
@@ -68,19 +66,19 @@ def login():
     return render_template('auth/login.html', username=username)
 
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_db().execute(
-            'SELECT id, login as username FROM users WHERE id = ?',
-            (user_id,)
-        ).fetchone()
+# @app.before_app_request
+# def load_logged_in_user():
+#     user_id = session.get('user_id')
+#     if user_id is None:
+#         g.user = None
+#     else:
+#         g.user = get_db().execute(
+#             'SELECT id, login as username FROM users WHERE id = ?',
+#             (user_id,)
+#         ).fetchone()
 
 
-@bp.route('/logout')
+@app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
