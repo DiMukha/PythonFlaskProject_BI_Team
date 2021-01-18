@@ -1,9 +1,12 @@
 from flask import render_template, request, url_for
+from flask_login import login_required
+
 from app import app
 from app.sales_data.import_db_data import load_sales_data, load_statuses
 
 
 @app.route('/data_view', methods=['GET', 'POST'])
+@login_required
 def data_view():
     filters = {parameter: value for parameter, value in request.args.items() if value}
     default_statuses = load_statuses()

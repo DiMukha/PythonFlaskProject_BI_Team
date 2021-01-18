@@ -13,7 +13,7 @@ class Config:
 
     DB_NAME = os.getenv('DBNAME')
     DB_NAME_ORM = os.getenv('DBNAMEORM')
-    DB_USER = os.getenv('USER')
+    DB_USER = os.getenv('DBUSER')
     DB_PASSWORD = os.getenv('PASSWORD')
     DB_HOST = os.getenv('HOST')
 

@@ -2,9 +2,14 @@
 {% block content %}
     <div class="jumbotron">
         <div class="container">
-            <ul>
+        <h2>Users List</h2>
+            <ul class="list-group">
                 {% for user in users %}
-                    <li>{{ user.first_name }} {{ user.last_name }}</li>
+                        <li class="list-group-item">
+                            <span>{{ user.first_name }} {{ user.last_name }}</span>
+                            <a class="btn btn-warning btn-sm " href="#" role="button">Update</a>
+                            <a class="btn btn-danger btn-sm " href="#" role="button">Delete</a>
+                        </li>
                 {% endfor %}
             </ul>
         </div>

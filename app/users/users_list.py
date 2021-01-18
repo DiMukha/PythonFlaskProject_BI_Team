@@ -1,9 +1,12 @@
 from flask import render_template, request, url_for, redirect
+from flask_login import login_required
+
 from app import app
 from app.models import User
 
 
 @app.route('/list_users')
+@login_required
 def list_users():
     users = User.query.all()
     return render_template('users/list_users.html', users=users)

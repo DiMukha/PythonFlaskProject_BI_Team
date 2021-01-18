@@ -1,8 +1,8 @@
-from flask import request, redirect, url_for, render_template
+from flask import request, redirect, url_for, render_template, flash
 from app import app, db, login_manager
 from .forms import RegistrationForm, LoginForm
 from app.models import User
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 
 @login_manager.user_loader
@@ -30,38 +30,22 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(login=form.login.data).first()
+        if user is None:
+            flash('No such user exists!')
+            return render_template('auth/login.html', form=form)
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
+            flash('Logged in Successfully!')
 
             next = request.args.get('next')
             if next == None or not next[0] == '/':
                 next = url_for('index')
             return redirect(next)
     return render_template('auth/login.html', form=form)
-#
-#
-# # @app.before_app_request
-# # def load_logged_in_user():
-# #     user_id = session.get('user_id')
-# #     if user_id is None:
-# #         g.user = None
-# #     else:
-# #         g.user = get_db().execute(
-# #             'SELECT id, login as username FROM users WHERE id = ?',
-# #             (user_id,)
-# #         ).fetchone()
-#
-#
-# @app.route('/logout')
-# def logout():
-#     session.clear()
-#     return redirect(url_for('index'))
-#
-#
-# def login_required(view):
-#     @functools.wraps(view)
-#     def wrapped_view(**kwargs):
-#         if g.user is None:
-#             return redirect(url_for('auth.login'))
-#         return view(**kwargs)
-#     return wrapped_view
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You logged out!')
+    return redirect(url_for('index'))
