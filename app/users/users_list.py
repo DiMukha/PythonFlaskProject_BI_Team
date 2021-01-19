@@ -1,7 +1,7 @@
-from flask import render_template, request, url_for, redirect
+from flask import render_template, redirect, flash, url_for
 from flask_login import login_required
 
-from app import app
+from app import app, db
 from app.models import User
 
 
@@ -10,6 +10,16 @@ from app.models import User
 def list_users():
     users = User.query.all()
     return render_template('users/list_users.html', users=users)
+
+
+@app.route('/delete_user/<login>', methods=['GET', 'POST'])
+@login_required
+def delete_user(login):
+    user = User.query.filter_by(login=login).first()
+    db.session.delete(user)
+    db.session.commit()
+    flash(f'User {user.login} is deleted!')
+    return redirect(url_for('index'))
 
 
 # @app.route('/update_user/<int:id_>', methods=['GET', 'POST'])
