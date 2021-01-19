@@ -28,12 +28,10 @@ def delete_user(login):
 def update_user(login):
     user = User.query.filter_by(login=login).first()
     form = UpdateForm()
-    print(form.validate_on_submit())
     if request.method == 'POST' and form.validate_on_submit():
-        print(request.method)
         user.first_name = form.first_name.data
         user.last_name = form.last_name.data
-        user.email = form.last_name.data
+        user.email = form.email.data
         db.session.commit()
         flash(f'User {user.login} is updated!')
         return redirect(url_for('list_users'))
