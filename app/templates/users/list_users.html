@@ -8,13 +8,13 @@
                 {% for user in users %}
                         <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 {{ user.first_name }} {{ user.last_name }}
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-lg-8 col-md-6">
                                 {{ user.email }}
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-lg-2 col-md-4">
                                 <a class="btn btn-warning btn-sm" href="{{ url_for('update_user', login=user.login) }}"
                                    role="button">Update</a>
                                 <a class="btn btn-danger btn-sm" href="{{ url_for('delete_user', login=user.login) }}"
