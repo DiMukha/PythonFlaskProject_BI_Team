@@ -3,12 +3,14 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+import flask_excel as excel
 
 import config
 
 login_manager = LoginManager()
 
 app = Flask(__name__)
+excel.init_excel(app)
 app.config.from_object(config.Config)
 Bootstrap(app)
 

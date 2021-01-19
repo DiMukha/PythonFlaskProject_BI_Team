@@ -1,7 +1,8 @@
-from flask import render_template, request, url_for
+from flask import render_template, request, url_for, redirect
 from flask_login import login_required
 
-from app import app
+
+from app import app, excel
 from app.sales_data.import_db_data import load_sales_data, load_statuses
 
 
@@ -28,6 +29,18 @@ def data_view():
 
     page_from = offset_page * 10
     page_to = page_from + 10
+
+    excel_export = base_url + f"&mode=xls"
+
+    if 'mode' in filters.keys():
+        xlsx_data = []
+        xlsx_data.append(columns)
+        for item in data:
+            xlsx_data.append(item)
+
+        return excel.make_response_from_array(xlsx_data, "xlsx", file_name='Sales data')
+
+
     return render_template('sales_data/table_data.html',
                            columns=columns,
                            data=data,
@@ -36,4 +49,5 @@ def data_view():
                            prev=prev,
                            next=next,
                            page_from=page_from,
-                           page_to=page_to)
+                           page_to=page_to,
+                           excel=excel_export)
