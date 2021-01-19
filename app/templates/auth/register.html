@@ -7,15 +7,36 @@
 {% block content %}
     <div class="jumbotron">
         <div class="container">
-            <form method="post">
-                {{ form.hidden_tag() }}
-                {{ form.login.label }}{{ form.login() }}<br>
-                {{ form.email.label }}{{ form.email() }}<br>
-                {{ form.first_name.label }}{{ form.first_name() }}<br>
-                {{ form.last_name.label }}{{ form.last_name() }}<br>
-                {{ form.password.label }}{{ form.password }}<br>
-                {{ form.pass_confirm.label }}{{ form.pass_confirm() }}<br>
-                {{ form.submit() }}
+            <h3>Registration form</h3>
+            <hr>
+            <form method="post" class="form" role="form">
+                {{ form.csrf_token() }}
+                <div class="row">
+                    <div class="col">
+                        {{ wtf.form_field(form.login, class='form-control', placeholder='Login') }}
+                    </div>
+                    <div class="col">
+                        {{ wtf.form_field(form.email, class='form-control', placeholder='Email') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ wtf.form_field(form.first_name, class='form-control', placeholder='First Name') }}
+                    </div>
+                    <div class="col">
+                        {{ wtf.form_field(form.last_name, class='form-control', placeholder='Last Name') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ wtf.form_field(form.password, class='form-control', placeholder='Password') }}
+                    </div>
+                    <div class="col">
+                        {{ wtf.form_field(form.pass_confirm, class='form-control', placeholder='Confirm Password') }}
+                    </div>
+                </div>
+                <hr>
+                        {{ wtf.form_field(form.submit, class='btn btn-primary') }}
             </form>
         </div>
     </div>
