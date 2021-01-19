@@ -6,7 +6,7 @@
             <hr>
             <ul class="list-group">
                 {% for user in users %}
-                        <li class="list-group-item">
+                    <li class="list-group-item">
                         <div class="row">
                             <div class="col-2">
                                 {{ user.first_name }} {{ user.last_name }}
@@ -21,10 +21,9 @@
                                    role="button">Delete</a>
                             </div>
                         </div>
-                        </li>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-
 {% endblock %}
