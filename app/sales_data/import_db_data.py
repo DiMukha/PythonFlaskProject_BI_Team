@@ -34,8 +34,12 @@ def load_sales_data(filters, offset_page):
             sql += filters['max_price']
             sql += ' AND'
 
-    sql += f" 1=1 order by ordernumber, orderlinenumber limit {app.config['ROWS_LIMIT']} " \
-           f"offset {offset_page*app.config['ROWS_LIMIT']}"
+    sql += f" 1=1 order by ordernumber, orderlinenumber"
+
+    if 'mode' not in filters.keys():
+        sql += f" limit {app.config['ROWS_LIMIT']} " \
+               f" offset {offset_page * app.config['ROWS_LIMIT']}"
+
     cursor.execute(sql)
     columns = [desc[0] for desc in cursor.description]
     data = cursor.fetchall()
