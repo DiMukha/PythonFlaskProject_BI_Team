@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -13,6 +15,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(64), unique=True, index=True)
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
+    uuid = db.Column(db.String(36))
 
     def __init__(self, login, password, email, first_name, last_name):
         self.login = login
@@ -20,6 +23,7 @@ class User(db.Model, UserMixin):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
+        self.uuid = uuid4()
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)

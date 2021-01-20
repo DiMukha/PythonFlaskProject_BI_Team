@@ -31,9 +31,9 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(login=form.login.data).first()
         if user is None:
-            flash('No such user exists!')
+            flash('UserName or Password is incorrect!')
             return render_template('auth/login.html', form=form)
-        if user.check_password(form.password.data) and user is not None:
+        if user.check_password(form.password.data):
             login_user(user)
             flash('Logged in Successfully!')
 

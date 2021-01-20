@@ -24,7 +24,7 @@ class Config:
         'host': DB_HOST
     }
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME_ORM
+    SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME_ORM}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     ROWS_LIMIT = 10
