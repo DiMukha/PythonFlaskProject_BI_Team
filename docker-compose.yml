@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:10.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5435:5432
+  web:
+    build: .
+    command:  python /usr/src/flask_bi_report_system/report_system.py
+    volumes:
+      - .:/usr/src/flask_bi_report_system
+    ports:
+      - 6000:6000
+    depends_on:
+      - db
+volumes:
+  postgres_data:
