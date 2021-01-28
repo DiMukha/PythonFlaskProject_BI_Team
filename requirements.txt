@@ -19,7 +19,7 @@ lml==0.1.0
 Mako==1.1.4
 MarkupSafe==1.1.1
 openpyxl==3.0.5
-psycopg2==2.8.6
+# psycopg2==2.8.6
 psycopg2-binary==2.8.6
 pyexcel==0.6.6
 pyexcel-io==0.6.4
