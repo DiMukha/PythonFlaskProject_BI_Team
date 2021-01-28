@@ -1,0 +1,32 @@
+[2020-09-30 12:49:54 +0000] [22079] [INFO] Starting gunicorn 20.0.4
+[2020-09-30 12:49:54 +0000] [22079] [INFO] Listening at: http://127.0.0.1:8000 (22079)
+[2020-09-30 12:49:54 +0000] [22079] [INFO] Using worker: sync
+[2020-09-30 12:49:54 +0000] [22082] [INFO] Booting worker with pid: 22082
+[2020-09-30 12:49:54 +0000] [22083] [INFO] Booting worker with pid: 22083
+[2020-10-04 11:12:38 +0000] [22079] [INFO] Handling signal: term
+[2020-10-04 14:12:38 +0300] [22082] [INFO] Worker exiting (pid: 22082)
+[2020-10-04 14:12:38 +0300] [22083] [INFO] Worker exiting (pid: 22083)
+[2020-10-04 11:12:39 +0000] [22079] [INFO] Shutting down: Master
+[2020-10-04 11:12:39 +0000] [25520] [INFO] Starting gunicorn 20.0.4
+[2020-10-04 11:12:39 +0000] [25520] [INFO] Listening at: http://127.0.0.1:8000 (25520)
+[2020-10-04 11:12:39 +0000] [25520] [INFO] Using worker: sync
+[2020-10-04 11:12:39 +0000] [25523] [INFO] Booting worker with pid: 25523
+[2020-10-04 11:12:39 +0000] [25524] [INFO] Booting worker with pid: 25524
+[2020-10-04 11:20:28 +0000] [25520] [INFO] Handling signal: term
+[2020-10-04 14:20:28 +0300] [25523] [INFO] Worker exiting (pid: 25523)
+[2020-10-04 14:20:28 +0300] [25524] [INFO] Worker exiting (pid: 25524)
+[2020-10-04 11:20:29 +0000] [25520] [INFO] Shutting down: Master
+[2020-10-04 11:20:29 +0000] [25672] [INFO] Starting gunicorn 20.0.4
+[2020-10-04 11:20:29 +0000] [25672] [INFO] Listening at: http://127.0.0.1:8000 (25672)
+[2020-10-04 11:20:29 +0000] [25672] [INFO] Using worker: sync
+[2020-10-04 11:20:29 +0000] [25675] [INFO] Booting worker with pid: 25675
+[2020-10-04 11:20:29 +0000] [25676] [INFO] Booting worker with pid: 25676
+[2020-10-07 15:04:19 +0000] [25672] [INFO] Handling signal: term
+[2020-10-07 18:04:19 +0300] [25675] [INFO] Worker exiting (pid: 25675)
+[2020-10-07 18:04:19 +0300] [25676] [INFO] Worker exiting (pid: 25676)
+[2020-10-07 15:04:19 +0000] [25672] [INFO] Shutting down: Master
+[2020-10-07 15:04:20 +0000] [2615] [INFO] Starting gunicorn 20.0.4
+[2020-10-07 15:04:20 +0000] [2615] [INFO] Listening at: http://127.0.0.1:8000 (2615)
+[2020-10-07 15:04:20 +0000] [2615] [INFO] Using worker: sync
+[2020-10-07 15:04:20 +0000] [2619] [INFO] Booting worker with pid: 2619
+[2020-10-07 15:04:20 +0000] [2620] [INFO] Booting worker with pid: 2620
