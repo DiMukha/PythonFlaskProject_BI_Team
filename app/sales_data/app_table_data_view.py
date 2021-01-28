@@ -11,7 +11,7 @@ def data_view():
     filters = {parameter: value for parameter, value in request.args.items() if value}
     default_statuses = load_statuses()
     offset_page = int(filters.get('page', 0))
-    columns, data = load_sales_data(filters, offset_page)
+    columns, data = load_sales_data.delay(filters, offset_page)
 
     base_url = f"{url_for('data_view')}" \
                f"?order_num={filters.get('order_num', '')}" \

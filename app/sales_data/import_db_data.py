@@ -1,8 +1,9 @@
 import psycopg2
 
-from app import app
+from app import app, client
 
 
+@client.task
 def load_sales_data(filters, offset_page):
     sql = 'select * from sales_data where  '
     connection = psycopg2.connect(**app.config['DB_CONNECTION'])

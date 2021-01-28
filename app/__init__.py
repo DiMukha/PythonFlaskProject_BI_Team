@@ -7,6 +7,8 @@ import flask_excel as excel
 
 import config
 
+from celery import Celery
+
 login_manager = LoginManager()
 
 app = Flask(__name__)
@@ -16,6 +18,9 @@ Bootstrap(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+client = Celery('report_system', broker=app.config['CELERY_BROKER_URL'])
+client.conf.update(app.config)
 
 login_manager.init_app(app)
 login_manager.login_view = 'login'

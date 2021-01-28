@@ -27,4 +27,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME_ORM}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
     ROWS_LIMIT = 10
